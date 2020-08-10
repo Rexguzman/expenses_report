@@ -71,13 +71,14 @@
             background-color: red;
             color: white;
             cursor: pointer;
+            width: 350px;
         }
         .delete-button:hover{
             background-color: red;
         }
         .modal-contenido{
             background-color:#06018A;
-            width: 400px;
+            width: 350px;
             padding: 10px 20px;
             margin: 15% auto;
             position: relative;
@@ -113,6 +114,20 @@
             display: flex;
             justify-content: center;
             align-items: center;
+        }
+        @media (max-width: 900px) { 
+    
+            .register-container {
+                width: 80%;
+            }
+            .form-container {
+                max-width: 290px;
+            }
+            .delete-button{
+                width: 290px;
+            }.modal-contenido {
+                width: 290px;
+            }
         }
     </style>
 </head>

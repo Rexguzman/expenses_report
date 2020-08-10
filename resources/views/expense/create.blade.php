@@ -67,6 +67,15 @@
             justify-content: center;
             align-items: center;
         }
+        @media (max-width: 900px) { 
+    
+            .register-container {
+                width: 80%;
+            }
+            .form-container {
+                max-width: 290px;
+            }
+        }
     </style>
 </head>
 <body>

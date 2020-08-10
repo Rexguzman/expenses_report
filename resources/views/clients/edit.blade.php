@@ -49,7 +49,7 @@
             width: 50vw;
             max-width: 500px;
             margin: 100px 0px;
-            height: 475px;
+            height: 500px;
             border-radius: 15px;
         }
         .form-container{
@@ -71,13 +71,14 @@
             background-color: red;
             color: white;
             cursor: pointer;
+            width: 350px;
         }
         .delete-button:hover{
             background-color: red;
         }
         .modal-contenido{
             background-color:#06018A;
-            width: 400px;
+            width: 350px;
             padding: 10px 20px;
             margin: 15% auto;
             position: relative;
@@ -121,6 +122,20 @@
             border-color: transparent;
             outline: none;
             text-align-last: center;
+        }
+        @media (max-width: 900px) { 
+            .register-container {
+                width: 80%;
+            }
+            .form-container {
+                max-width: 290px;
+            }
+            .delete-button{
+                width: 290px;
+            }
+            .modal-contenido {
+                width: 290px;
+            }
         }
     </style>
 </head>
