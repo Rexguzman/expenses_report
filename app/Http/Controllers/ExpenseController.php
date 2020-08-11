@@ -92,7 +92,7 @@ class ExpenseController extends Controller
         $report->amount = $validateData['amount'];
         $report->save();
 
-        return redirect('/clients');
+        return redirect('/clients/' . client::findOrFail($id)->id);
     }
 
     /**
@@ -106,6 +106,6 @@ class ExpenseController extends Controller
         $report = expense::findOrFail($id);
         $report->delete();
 
-        return redirect('/clients');
+        return redirect('/clients/' . client::findOrFail($id)->id);
     }
 }
