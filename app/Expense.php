@@ -9,5 +9,5 @@ class Expense extends Model
     public function client()
     {
         return $this->belongsTo(client::class);
-    }
+    }   
 }

@@ -27,10 +27,20 @@ Route::get('clients', function () {
 
 Auth::routes();
 
-Route::resource('/clients','ClientController');
-Route::resource('/clients/{id}/expenses','ExpenseController');
+Route::resources([
+    'clients' => 'ClientController',
+    'expenses' => 'ExpenseController',
+]);
 
-Route::get('/clients/{id}/expenses/create', 'ExpenseController@create');
-Route::get('/clients/{id}', 'ExpenseController@create');
-Route::post('/clients/{id}/expenses', 'ExpenseController@store');
+Route::prefix('clients')->group(function () {
+    Route::get('/', 'ClientController@index');
+
+    Route::prefix('{client_id}')->group(function() {
+        Route::get('/expenses/create', 'ExpenseController@create');
+        Route::get('/expenses/{expense_id}/edit', 'ExpenseController@edit');
+        Route::put('/expenses/{expense_id}', 'ExpenseController@update');
+        Route::post('/expenses', 'ExpenseController@store');
+
+    });
+});
 

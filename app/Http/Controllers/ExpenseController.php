@@ -15,7 +15,9 @@ class ExpenseController extends Controller
      */
     public function index()
     {
-        //
+        return view('clients.show', [
+            'expenses' => expenses::all()
+        ]);
     }
 
     /**
@@ -23,10 +25,10 @@ class ExpenseController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($id)
+    public function create($client_id)
     {
         return view('expense.create', [
-            'client'=> client::findOrFail($id)
+            'client'=> client::findOrFail($client_id)
         ]);
     }
 
@@ -36,15 +38,19 @@ class ExpenseController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, client $client, $id)
+    public function store(Request $request, $client_id)
     {
+        $validateData = $request->validate([
+            'description' => 'required|min:3', 
+            'amount' => 'required|min:1', 
+            ]);
         $expense = new Expense();
-        $expense->description = $request->get('description');
-        $expense->amount = $request->get('amount');
-        $expense->client_id = client::findOrFail($id)->id;
+        $expense->description = $validateData['description'];
+        $expense->amount = $validateData['amount'];
+        $expense->client_id = client::findOrFail($client_id)->id;
         $expense->save();
 
-        return redirect('/clients/' . client::findOrFail($id)->id);
+        return redirect('/clients/' . client::findOrFail($client_id)->id);
     }
 
     /**
@@ -53,7 +59,7 @@ class ExpenseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($client_id)
     {
         //
     }
@@ -64,10 +70,10 @@ class ExpenseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id, expense $expense, client $client)
+    public function edit($client_id, $expense_id)
     {
-        $report = Expense::findOrFail($id);
-        $client = client::findOrFail($id);
+        $expense = Expense::findOrFail($expense_id);
+        $client = client::findOrFail($client_id);
         return view('expense.edit', [
             'expense'=>$expense,
             'client'=>$client
@@ -81,18 +87,18 @@ class ExpenseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $client_id, $expense_id)
     {
         $validateData = $request->validate([
             'description' => 'required|min:3', 
             'amount' => 'required|min:1', 
             ]);
-        $report = expense::findOrFail($id);
+        $report = expense::findOrFail($expense_id);
         $report->description = $validateData['description'];
         $report->amount = $validateData['amount'];
         $report->save();
 
-        return redirect('/clients/' . client::findOrFail($id)->id);
+        return redirect('/clients/' . client::findOrFail($client_id)->id);
     }
 
     /**
@@ -101,11 +107,11 @@ class ExpenseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($client_id)
     {
-        $report = expense::findOrFail($id);
+        $report = expense::findOrFail($client_id);
         $report->delete();
 
-        return redirect('/clients/' . client::findOrFail($id)->id);
+        return redirect('/clients/' . client::findOrFail($client_id)->id);
     }
 }

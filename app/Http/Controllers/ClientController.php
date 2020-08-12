@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\client;
+use App\user;
+use Auth;
 use Illuminate\Http\Request;
 
 class ClientController extends Controller
@@ -15,7 +17,7 @@ class ClientController extends Controller
     public function index()
     {
         return view('clients.index', [
-            'clients' => client::all()
+            'clients' => User::find(Auth::id())->clients
         ]);
     }
 
@@ -51,6 +53,7 @@ class ClientController extends Controller
         $report->phone = $validateData['phone'];
         $report->sex = $validateData['sex'];
         $report->direction = $validateData['direction'];
+        $report->user_id = auth()->user()->id;
         $report->save();
 
         return redirect('/clients');
