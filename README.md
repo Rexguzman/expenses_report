@@ -36,7 +36,7 @@ Expense Report is a simple CRUD app designed to record the expenses of your clie
 In the project folder you must open the terminal and type the following commands (you must have Git installed):
 
 ```sh
-$ Git Clone URL
+$ Git Clone https://github.com/Rexguzman/expenses_report.git
 $ composer install
 $ php artisan migrate
 $ php artisan serve
